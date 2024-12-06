@@ -7,7 +7,7 @@ FlightTrackerCLI is a command-line application that helps you find flights depar
 ## Technologies Used
 
 - Node.js
-- JavaScript
+- TypeScript
 
 ## How to Contribute
 
