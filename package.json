@@ -1,0 +1,25 @@
+{
+  "name": "flighttrackercli",
+  "version": "1.0.0",
+  "description": "This is a cli app that will help you find what flights are leaving your nearby airport",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mdwiltfong/FlightTrackerCLI.git"
+  },
+  "keywords": [
+    "flight",
+    "tracker",
+    "cli",
+    "codecademy"
+  ],
+  "author": "Michael Wiltfong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mdwiltfong/FlightTrackerCLI/issues"
+  },
+  "homepage": "https://github.com/mdwiltfong/FlightTrackerCLI#readme"
+}
