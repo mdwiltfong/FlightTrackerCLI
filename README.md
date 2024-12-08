@@ -9,6 +9,13 @@ FlightTrackerCLI is a command-line application that helps you find flights depar
 - Node.js
 - JavaScript
 
+## External Dependencies
+
+FlightTrackerCLI relies on the following external dependencies:
+
+- `jest`: A JavaScript testing framework.
+- `BitWarden CLI`: A command-line interface for BitWarden, used for securely storing and retrieving credentials.
+
 ## How to Contribute
 
 We welcome contributions to improve FlightTrackerCLI! Here are some ways you can contribute:
@@ -22,6 +29,30 @@ We welcome contributions to improve FlightTrackerCLI! Here are some ways you can
 
 Please make sure to follow the project's coding standards and write tests for any new features or bug fixes.
 
-## Contact
+## Pull Request Requirements
 
-If you have any questions or issues, please open an issue on the [GitHub repository](https://github.com/mdwiltfong/FlightTrackerCLI/issues).
+Before a pull request (PR) can be merged, it must meet the following requirements:
+
+1. **Pass all tests**: Ensure that all existing and new tests pass. You can run the tests using the command `npm test`.
+2. **Code review**: The PR must be reviewed and approved by at least one code maintainer.
+3. **Follow coding standards**: Make sure your code adheres to the project's coding standards and guidelines.
+4. **Update documentation**: If your changes affect the documentation, update it accordingly.
+
+## Environment Variables
+
+To run FlightTrackerCLI locally, you need to set up the following environment variables:
+
+- `OPENSKY_API_URL`: The URL for the OpenSky Network API.
+- `OPENSKY_API_USERNAME`: Your OpenSky Network API username.
+- `OPENSKY_API_PASSWORD`: Your OpenSky Network API password.
+
+You can create a `.env` file in the root directory of the project and add these variables there. Refer to the `.env.example` file for an example.
+
+## Using BitWarden CLI for Authentication
+
+To send authenticated posts to the OpenSky API, FlightTrackerCLI expects you to have the BitWarden CLI installed. The CLI will query for a username and password under an item called "OpenSkyAPI".
+
+Sending authenticated requests is optional. The benefit of authenticated requests is that you get additional requests from OpenSky. If you don't expect to send a lot of queries, you can simply not provide a username and password through BitWarden, and FlightTrackerCLI will send unauthenticated requests.
+
+1. Install the BitWarden CLI by following the instructions on the [BitWarden CLI GitHub page](https://github.com/bitwarden/cli).
+2. Log in to your BitWarden account using the CLI:
