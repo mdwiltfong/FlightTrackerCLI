@@ -2,12 +2,13 @@
   "name": "flighttrackercli",
   "version": "1.0.0",
   "description": "This is a cli app that will help you find what flights are leaving your nearby airport",
-  "main": "bin/index.js",
+  "main": "bin/flightTracker.js",
   "bin": {
-    "flighttracker": "./bin/index.js"
+    "flighttracker": "./bin/flightTracker.js"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "node ./bin/flightTracker.js"
   },
   "repository": {
     "type": "git",
@@ -27,5 +28,9 @@
   "homepage": "https://github.com/mdwiltfong/FlightTrackerCLI#readme",
   "devDependencies": {
     "jest": "^29.7.0"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "yargs": "^17.7.2"
   }
 }
