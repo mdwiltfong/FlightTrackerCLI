@@ -15,23 +15,24 @@ var options = yargs(process.argv.slice(2))
         })
         .option("manual", {
           alias: "m",
-          demandOption: false,
-          type: "boolean",
+          description: "Manually pass API Key",
+          type: "string",
         });
     },
     (argv) => {
-      if (argv["manual"] || argv.m) {
+      if (argv.m) {
         // Logic for manual login
-        console.log(chalk.green("Manually pass the API key"));
+        console.log(chalk.green("Storing API key locally and logging in..."));
         return;
-      }
-      if (!argv.key) {
-        console.log(
-          chalk.red(
-            "The name of the note in BitWarden is required for automatic login."
-          )
-        );
-        process.exit(1);
+      } else {
+        if (!argv.name) {
+          console.log(
+            chalk.red(
+              "The name of the note in BitWarden is required for automatic login."
+            )
+          );
+          return;
+        }
       }
       console.log(chalk.green("Loading credentials from BitWarden..."));
       // Add your BitWarden login logic here
