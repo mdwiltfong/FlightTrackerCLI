@@ -5,12 +5,12 @@ const { FlightTrackerCLI } = require("./utils/utils");
 var options = yargs(process.argv.slice(2))
   .usage("Usage: flighttracker <command> [options]")
   .command(
-    "login [key]",
-    "Login to OpenSky API Using username and password stored in BitWarden.",
+    "login [name]",
+    "Login to Aviationstack API Using the api key stored in your BitWarden vault. The Key must be stored as a note.",
     (yargs) => {
       yargs
-        .positional("key", {
-          describe: "BitWarden Key",
+        .positional("name", {
+          describe: "BitWarden Note Nam",
           type: "string",
         })
         .option("manual", {
@@ -22,12 +22,14 @@ var options = yargs(process.argv.slice(2))
     (argv) => {
       if (argv["manual"] || argv.m) {
         // Logic for manual login
-        console.log(chalk.green("Manually logging in"));
+        console.log(chalk.green("Manually pass the API key"));
         return;
       }
       if (!argv.key) {
         console.log(
-          chalk.red("BitWarden key is required for automatic login.")
+          chalk.red(
+            "The name of the note in BitWarden is required for automatic login."
+          )
         );
         process.exit(1);
       }

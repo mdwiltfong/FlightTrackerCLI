@@ -46,20 +46,29 @@ Before a pull request (PR) can be merged, it must meet the following requirement
 
 To run FlightTrackerCLI locally, you need to set up the following environment variables:
 
-- `OPENSKY_API_URL`: The URL for the OpenSky Network API.
-- `OPENSKY_API_USERNAME`: Your OpenSky Network API username.
-- `OPENSKY_API_PASSWORD`: Your OpenSky Network API password.
+- `AVIATIONSTACK_API_URL`: The URL for the Aviationstack API.
+- `AVIATIONSTACK_API_KEY`: Your Aviationstack API key.
 
 You can create a `.env` file in the root directory of the project and add these variables there. Refer to the `.env.example` file for an example.
 
 ## Using BitWarden CLI for Authentication
 
-To send authenticated posts to the OpenSky API, FlightTrackerCLI expects you to have the BitWarden CLI installed. The CLI will query for a username and password under an item called "OpenSkyAPI".
+To send requests to the Aviationstack API, FlightTrackerCLI expects you to have the BitWarden CLI installed. The CLI will query for an API key under a note called "AviationstackAPI".
 
-Sending authenticated requests is optional. The benefit of authenticated requests is that you get additional requests from OpenSky. If you don't expect to send a lot of queries, you can simply not provide a username and password through BitWarden, and FlightTrackerCLI will send unauthenticated requests.
+Using BitWarden is optional. You can also pass your API key directly to the application. This feature is a work in progress and will be available in future updates.
 
 1. Install the BitWarden CLI by following the instructions on the [BitWarden CLI GitHub page](https://github.com/bitwarden/cli).
    - For macOS: `brew install bitwarden-cli`
    - For Windows: Download the installer from the [BitWarden CLI GitHub page](https://github.com/bitwarden/cli).
    - For Linux: Use the appropriate package manager for your distribution or download the binary from the [BitWarden CLI GitHub page](https://github.com/bitwarden/cli).
 2. Log in to your BitWarden account using the CLI:
+
+## Obtaining an API Key from Aviationstack
+
+To use the Aviationstack API, you need to obtain an API key. Follow these steps to get your key:
+
+1. Go to the [Aviationstack website](https://aviationstack.com/).
+2. Click on the "Get API Key" button.
+3. Sign up for an account or log in if you already have one.
+4. Once logged in, navigate to the API section of your account.
+5. Copy your API key and add it to your `.env` file as `AVIATIONSTACK_API_KEY`.
