@@ -4,7 +4,7 @@ describe("Smoke Test", () => {
     expect(true).toBe(true);
   });
   it("should run the CLI", (done) => {
-    exec("node ./bin/index.js", (error, stdout, stderr) => {
+    exec("node ./bin/flightTracker.js --help", (error, stdout, stderr) => {
       expect(error).toBe(null);
       expect(stderr).toBe("");
       expect(stdout).not.toBeNull();

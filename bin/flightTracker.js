@@ -1,6 +1,7 @@
 #! /usr/bin/env node
 const yargs = require("yargs");
 const chalk = require("chalk");
+const { FlightTrackerCLI } = require("./utils/utils");
 var options = yargs(process.argv.slice(2))
   .usage("Usage: flighttracker <command> [options]")
   .command(
