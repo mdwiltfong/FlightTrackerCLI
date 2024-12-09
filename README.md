@@ -8,6 +8,8 @@ FlightTrackerCLI is a command-line application that helps you find flights depar
 
 - Node.js
 - JavaScript
+- yargs
+- chalk
 
 ## External Dependencies
 
@@ -15,6 +17,8 @@ FlightTrackerCLI relies on the following external dependencies:
 
 - `jest`: A JavaScript testing framework.
 - `BitWarden CLI`: A command-line interface for BitWarden, used for securely storing and retrieving credentials.
+- `yargs`: A library for building command-line interfaces.
+- `chalk`: A library for styling terminal output (version 4.1.2).
 
 ## How to Contribute
 
@@ -55,4 +59,7 @@ To send authenticated posts to the OpenSky API, FlightTrackerCLI expects you to 
 Sending authenticated requests is optional. The benefit of authenticated requests is that you get additional requests from OpenSky. If you don't expect to send a lot of queries, you can simply not provide a username and password through BitWarden, and FlightTrackerCLI will send unauthenticated requests.
 
 1. Install the BitWarden CLI by following the instructions on the [BitWarden CLI GitHub page](https://github.com/bitwarden/cli).
+   - For macOS: `brew install bitwarden-cli`
+   - For Windows: Download the installer from the [BitWarden CLI GitHub page](https://github.com/bitwarden/cli).
+   - For Linux: Use the appropriate package manager for your distribution or download the binary from the [BitWarden CLI GitHub page](https://github.com/bitwarden/cli).
 2. Log in to your BitWarden account using the CLI:
