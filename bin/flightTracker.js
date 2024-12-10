@@ -2,6 +2,9 @@
 const yargs = require("yargs");
 const chalk = require("chalk");
 const { FlightTrackerCLI } = require("./utils/utils");
+
+const flightTracker = new FlightTrackerCLI()
+
 var options = yargs(process.argv.slice(2))
   .usage("Usage: flighttracker <command> [options]")
   .command(
@@ -46,10 +49,21 @@ var options = yargs(process.argv.slice(2))
         describe:
           "The airport name as you know. For example John F. Kennedy airport",
         type: "string",
-      });
+      })
+
+      // Will we be passing an access_key to the API?
+
+      // .option("access_key", {
+      //   alias: "k",
+      //   description: "You AviationStack API access key",
+      //   type: "string",
+      //   demandOption: true
+      // })
     },
     (argv) => {
-      if (argv["name"]) {
+      if (argv['name']) {
+        // REQUIRES API KEY
+        // flightTracker.findIATACode(argv['name'])
         console.log(chalk.green("Looking for IATA code"));
         return;
       }

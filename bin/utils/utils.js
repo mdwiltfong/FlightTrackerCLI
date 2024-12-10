@@ -1,15 +1,42 @@
 
 const axios = require("axios");
+const chalk = require("chalk");
 
 class FlightTrackerCLI {
   constructor() {
     this.axiosInstance = axios.create({
-      baseURL: 'https://opensky-network.org/api',
+      baseURL: 'https://api.aviationstack.com/v1',
       timeout: 5000,
       headers: {
         'Content-Type': 'application/json',
       }
     });
+  }
+
+  async findIATACode(airportName) {
+    try {
+      const response = await this.axiosInstance.get('/airports', {
+        params: {
+          city: airportName,
+          // access_key: 'YOUR_API_KEY', // option to pass key manually
+        },
+      });
+
+      if (response && response.status === 200 && response.data) {
+        if(response.data.data && response.data.data.length > 0) {
+          console.log(`IATA Code for ${airportName}: ${response.data.data[0].iata_code}`);
+        }
+        else {
+          console.log(chalk.red(`No IATA code found for the given airport name: ${airportName}`));
+        }
+      }
+      else {
+        console.log(chalk.red("Error: Invalid response from API"));
+      }
+
+    } catch (error) {
+      console.error('Error fetching IATA code:', error.message || error);
+    }
   }
 
   async findFlights(iataCode) {
@@ -19,9 +46,18 @@ class FlightTrackerCLI {
           airport: iataCode,
         },
       });
-      console.log(response.data)
+
+      // return API response data or load it
+      if (response && response.status === 200) {
+        console.log(`Flights at ${iataCode}:`);
+        console.log(response.data); // log the data
+        return response.data;
+      }
+      else {
+        console.log(chalk.red("Error: Failed to retrieve flight data"));
+      }
     } catch (error) {
-      console.error('Error fetching flights:', error);
+      console.error('Error fetching flights:', error.message || error)
     }
   }
 
@@ -35,4 +71,4 @@ class FlightTrackerCLI {
   }
 }
 
-module.exports = FlightTrackerCLI;
+module.exports = { FlightTrackerCLI };
