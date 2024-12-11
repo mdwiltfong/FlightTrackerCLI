@@ -2,7 +2,7 @@
 const yargs = require("yargs");
 const chalk = require("chalk");
 
-const { aviationstackAPI, bitwardenAPI } = require('./api.js')
+const { aviationstackAPI } = require('./api.js')
 const { FlightTrackerCLI } = require("./utils/utils");
 
 const flightTracker = new FlightTrackerCLI()
@@ -39,11 +39,6 @@ var options = yargs(process.argv.slice(2))
           return;
         }
       }
-      // Add your BitWarden login logic here
-      // check axios instance
-      if(flightTracker.axiosInstance !== bitwardenAPI) {
-        flightTracker.axiosInstance = bitwardenAPI
-      }
       console.log(chalk.green("Loading credentials from BitWarden..."));
     }
   )
@@ -59,12 +54,16 @@ var options = yargs(process.argv.slice(2))
     },
     (argv) => {
       if (argv["name"]) {
+
+        // check for API key
+        if(!flightTracker.apiKey) {
+          return { error: "API key missing."}
+          // console.log(chalk.red("Error: No API key entered."));
+          return;
+        }
         // make input lower case and remove leading and trailing whitespace
         argv["name"] = argv["name"].toLowerCase().trim()
-        // check axios instance
-        if(flightTracker.axiosInstance !== aviationstackAPI) {
-          flightTracker.axiosInstance = aviationstackAPI
-        }
+
         // REQUIRES API KEY
         // flightTracker.findIATACode(argv['name'])
         console.log(chalk.green("Looking for IATA code"));
@@ -85,10 +84,13 @@ var options = yargs(process.argv.slice(2))
     (argv) => {
       if (argv["IATACode"]) {
         argv["IATACode"] = argv["IATACode"].toUpperCase().trim() // make the IATA code uppercase and remove leading and trailing whitespace
-        // check axios instance
-        if(flightTracker.axiosInstance !== aviationstackAPI) {
-          flightTracker.axiosInstance = aviationstackAPI
+
+        // check for API key
+        if(!flightTracker.apiKey) {
+          console.log(chalk.red("Error: No API key entered."));
+          return;
         }
+        
         console.log(chalk.green("Looking up flights..."));
         return;
       }

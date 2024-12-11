@@ -9,11 +9,7 @@ class FlightTrackerCLI {
   }
 
   async findIATACode(airportName) {
-    // check for api key
-    if (!this.apiKey) {
-      console.log(chalk.red("Error: API key is missing."))
-      return;
-    }
+
     try {
       const response = await this.axiosInstance.get('/airports', {
         params: {
@@ -40,11 +36,7 @@ class FlightTrackerCLI {
   }
 
   async findFlights(iataCode) {
-    // check for api key
-    if(!this.apiKey) {
-      console.log(chalk.red("Error: API key is missing."))
-      return;
-    }
+    
     try {
       const response = await this.axiosInstance.get('flights', {
         params: {

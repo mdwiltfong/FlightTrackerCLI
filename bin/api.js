@@ -12,14 +12,4 @@ const aviationstackAPI = axios.create({
     // ^ Keeping this just for reference
 });
 
-// BitWarden API (for fetching API keys stored there)
-
-const bitwardenAPI = axios.create({
-    baseURL: "https://bitwarden.com",
-    timeout: 5000,
-    // appropriate bitwarden headers?
-    // currently unable to use bitwarden in CLI to test
-});
-
-
-module.exports = { aviationstackAPI, bitwardenAPI };
+module.exports = { aviationstackAPI };
