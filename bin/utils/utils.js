@@ -3,22 +3,22 @@ const axios = require("axios");
 const chalk = require("chalk");
 
 class FlightTrackerCLI {
-  constructor() {
-    this.axiosInstance = axios.create({
-      baseURL: 'https://api.aviationstack.com/v1',
-      timeout: 5000,
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    });
+  constructor(apiKey = null, axiosInstance) {
+    this.apiKey = apiKey;
+    this.axiosInstance = axiosInstance;
   }
 
   async findIATACode(airportName) {
+    // check for api key
+    if (!this.apiKey) {
+      console.log(chalk.red("Error: API key is missing."))
+      return;
+    }
     try {
       const response = await this.axiosInstance.get('/airports', {
         params: {
           city: airportName,
-          // access_key: 'YOUR_API_KEY', // option to pass key manually
+          // access_key: 'YOUR_API_KEY',
         },
       });
 
@@ -40,6 +40,11 @@ class FlightTrackerCLI {
   }
 
   async findFlights(iataCode) {
+    // check for api key
+    if(!this.apiKey) {
+      console.log(chalk.red("Error: API key is missing."))
+      return;
+    }
     try {
       const response = await this.axiosInstance.get('flights', {
         params: {
