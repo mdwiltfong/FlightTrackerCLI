@@ -1,5 +1,4 @@
 
-const axios = require("axios");
 const chalk = require("chalk");
 
 class FlightTrackerCLI {
@@ -20,7 +19,7 @@ class FlightTrackerCLI {
 
       if (response && response.status === 200 && response.data) {
         if(response.data.data && response.data.data.length > 0) {
-          console.log(`IATA Code for ${airportName}: ${response.data.data[0].iata_code}`);
+          console.log(chalk.green(`IATA Code for ${airportName}: ${response.data.data[0].iata_code}`));
         }
         else {
           console.log(chalk.red(`No IATA code found for the given airport name: ${airportName}`));
@@ -46,7 +45,7 @@ class FlightTrackerCLI {
 
       // return API response data or load it
       if (response && response.status === 200) {
-        console.log(`Flights at ${iataCode}:`);
+        console.log(chalk.green(`Flights at ${iataCode}:`));
         console.log(response.data); // log the data
         return response.data;
       }

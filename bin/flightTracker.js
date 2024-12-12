@@ -5,7 +5,7 @@ const chalk = require("chalk");
 const { aviationstackAPI } = require('./api.js')
 const { FlightTrackerCLI } = require("./utils/utils");
 
-const flightTracker = new FlightTrackerCLI()
+const flightTracker = new FlightTrackerCLI(null, aviationstackAPI)
 
 var options = yargs(process.argv.slice(2))
   .usage("Usage: flighttracker <command> [options]")
@@ -57,9 +57,7 @@ var options = yargs(process.argv.slice(2))
 
         // check for API key
         if(!flightTracker.apiKey) {
-          return { error: "API key missing."}
-          // console.log(chalk.red("Error: No API key entered."));
-          return;
+          console.log(chalk.red("Error: No API key entered."));
         }
         // make input lower case and remove leading and trailing whitespace
         argv["name"] = argv["name"].toLowerCase().trim()
