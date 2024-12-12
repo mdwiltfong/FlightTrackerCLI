@@ -26,26 +26,30 @@ describe.each(cliCommands)(
   "CLI can run command %s with %s flag and %s input",
   (command, flag, input) => {
     it(`${command} should run with ${
-      flag ? "no flag" : flag
-    } and this input ${input} without errors`, () => {
-      if (flag) {
-        exec(
-          `node ./bin/flightTracker.js ${command} -${flag} ${input}`,
-          (error, stdout, stderr) => {
-            expect(error).toBe(null);
-            expect(stderr).toBe("");
-            expect(stdout).not.toBeNull();
-          }
-        );
-      } else {
-        exec(
-          `node ./bin/flightTracker.js ${command} ${input}`,
-          (error, stdout, stderr) => {
-            expect(error).toBe(null);
-            expect(stderr).toBe("");
-            expect(stdout).not.toBeNull();
-          }
-        );
+      flag ? flag : "no flag"
+    } and  \"${input}\" as input without errors`, (done) => {
+      try {
+        if (flag) {
+          exec(
+            `node ./bin/flightTracker.js ${command} -${flag} ${input}`,
+            (error, stdout, stderr) => {
+              expect(error).toBe(null);
+              expect(stderr).toBe("");
+              expect(stdout).not.toBeNull();
+            }
+          );
+        } else {
+          exec(
+            `node ./bin/flightTracker.js ${command} ${input}`,
+            (error, stdout, stderr) => {
+              expect(error).toBe(null);
+              expect(stderr).toBe("");
+              expect(stdout).not.toBeNull();
+            }
+          );
+        }
+      } catch (error) {
+        done(error);
       }
     });
   }

@@ -2,10 +2,10 @@
 const yargs = require("yargs");
 const chalk = require("chalk");
 
-const { aviationstackAPI } = require('./api.js')
+const { aviationstackAPI, bitwardenAPI } = require("./api.js");
 const { FlightTrackerCLI } = require("./utils/utils");
 
-const flightTracker = new FlightTrackerCLI(null, aviationstackAPI)
+const flightTracker = new FlightTrackerCLI();
 
 var options = yargs(process.argv.slice(2))
   .usage("Usage: flighttracker <command> [options]")
@@ -39,6 +39,11 @@ var options = yargs(process.argv.slice(2))
           return;
         }
       }
+      // Add your BitWarden login logic here
+      // check axios instance
+      if (flightTracker.axiosInstance !== bitwardenAPI) {
+        flightTracker.axiosInstance = bitwardenAPI;
+      }
       console.log(chalk.green("Loading credentials from BitWarden..."));
     }
   )
@@ -50,7 +55,7 @@ var options = yargs(process.argv.slice(2))
         describe:
           "The airport name as you know. For example John F. Kennedy airport",
         type: "string",
-      })
+      });
     },
     (argv) => {
       if (argv["name"]) {
@@ -60,11 +65,14 @@ var options = yargs(process.argv.slice(2))
           console.log(chalk.red("Error: No API key entered."));
         }
         // make input lower case and remove leading and trailing whitespace
-        argv["name"] = argv["name"].toLowerCase().trim()
-
+        argv["name"] = argv["name"].toLowerCase().trim();
+        // check axios instance
+        if (flightTracker.axiosInstance !== aviationstackAPI) {
+          flightTracker.axiosInstance = aviationstackAPI;
+        }
         // REQUIRES API KEY
         // flightTracker.findIATACode(argv['name'])
-        console.log(chalk.green("Looking for IATA code"));
+        console.log(chalk.green(flightTracker.findIATACode()));
         return;
       }
       console.log(chalk.red("No airport name provided"));
@@ -81,12 +89,10 @@ var options = yargs(process.argv.slice(2))
     },
     (argv) => {
       if (argv["IATACode"]) {
-        argv["IATACode"] = argv["IATACode"].toUpperCase().trim() // make the IATA code uppercase and remove leading and trailing whitespace
-
-        // check for API key
-        if(!flightTracker.apiKey) {
-          console.log(chalk.red("Error: No API key entered."));
-          return;
+        argv["IATACode"] = argv["IATACode"].toUpperCase().trim(); // make the IATA code uppercase and remove leading and trailing whitespace
+        // check axios instance
+        if (flightTracker.axiosInstance !== aviationstackAPI) {
+          flightTracker.axiosInstance = aviationstackAPI;
         }
         
         console.log(chalk.green("Looking up flights..."));
