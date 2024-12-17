@@ -1,7 +1,12 @@
 #! /usr/bin/env node
 const yargs = require("yargs");
 const chalk = require("chalk");
+
+const { aviationstackAPI, bitwardenAPI } = require("./api.js");
 const { FlightTrackerCLI } = require("./utils/utils");
+
+const flightTracker = new FlightTrackerCLI();
+
 var options = yargs(process.argv.slice(2))
   .usage("Usage: flighttracker <command> [options]")
   .command(
@@ -34,8 +39,8 @@ var options = yargs(process.argv.slice(2))
           return;
         }
       }
-      console.log(chalk.green("Loading credentials from BitWarden..."));
       // Add your BitWarden login logic here
+      console.log(chalk.green("Loading credentials from BitWarden..."));
     }
   )
   .command(
@@ -50,7 +55,9 @@ var options = yargs(process.argv.slice(2))
     },
     (argv) => {
       if (argv["name"]) {
-        console.log(chalk.green("Looking for IATA code"));
+        // make input lower case and remove leading and trailing whitespace
+        argv["name"] = argv["name"].toLowerCase().trim();
+        console.log(chalk.green(flightTracker.findIATACode()));
         return;
       }
       console.log(chalk.red("No airport name provided"));
@@ -67,7 +74,8 @@ var options = yargs(process.argv.slice(2))
     },
     (argv) => {
       if (argv["IATACode"]) {
-        console.log(chalk.green("Looking up flights..."));
+        argv["IATACode"] = argv["IATACode"].toUpperCase().trim(); // make the IATA code uppercase and remove leading and trailing whitespace
+        console.log(chalk.green(flightTracker.findFlights(argv["IATACode"])));
         return;
       }
       console.log(chalk.red("A IATACode was not provided"));
@@ -75,5 +83,3 @@ var options = yargs(process.argv.slice(2))
   )
   .demandCommand(1, chalk.red("You need at least one command before moving on"))
   .parse();
-
-console.log(options);
