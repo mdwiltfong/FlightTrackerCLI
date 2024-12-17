@@ -40,10 +40,6 @@ var options = yargs(process.argv.slice(2))
         }
       }
       // Add your BitWarden login logic here
-      // check axios instance
-      if (flightTracker.axiosInstance !== bitwardenAPI) {
-        flightTracker.axiosInstance = bitwardenAPI;
-      }
       console.log(chalk.green("Loading credentials from BitWarden..."));
     }
   )
@@ -59,19 +55,8 @@ var options = yargs(process.argv.slice(2))
     },
     (argv) => {
       if (argv["name"]) {
-
-        // check for API key
-        if(!flightTracker.apiKey) {
-          console.log(chalk.red("Error: No API key entered."));
-        }
         // make input lower case and remove leading and trailing whitespace
         argv["name"] = argv["name"].toLowerCase().trim();
-        // check axios instance
-        if (flightTracker.axiosInstance !== aviationstackAPI) {
-          flightTracker.axiosInstance = aviationstackAPI;
-        }
-        // REQUIRES API KEY
-        // flightTracker.findIATACode(argv['name'])
         console.log(chalk.green(flightTracker.findIATACode()));
         return;
       }
@@ -90,12 +75,7 @@ var options = yargs(process.argv.slice(2))
     (argv) => {
       if (argv["IATACode"]) {
         argv["IATACode"] = argv["IATACode"].toUpperCase().trim(); // make the IATA code uppercase and remove leading and trailing whitespace
-        // check axios instance
-        if (flightTracker.axiosInstance !== aviationstackAPI) {
-          flightTracker.axiosInstance = aviationstackAPI;
-        }
-        
-        console.log(chalk.green("Looking up flights..."));
+        console.log(chalk.green(flightTracker.findFlights(argv["IATACode"])));
         return;
       }
       console.log(chalk.red("A IATACode was not provided"));
@@ -103,5 +83,3 @@ var options = yargs(process.argv.slice(2))
   )
   .demandCommand(1, chalk.red("You need at least one command before moving on"))
   .parse();
-
-console.log(options);

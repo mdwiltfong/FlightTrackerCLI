@@ -53,8 +53,6 @@ class FlightTrackerCLI {
 
       // return API response data or load it
       if (response && response.status === 200) {
-        console.log(chalk.green(`Flights at ${iataCode}:`));
-        console.log(response.data); // log the data
         return response.data;
       } else {
         console.log(chalk.red("Error: Failed to retrieve flight data"));
