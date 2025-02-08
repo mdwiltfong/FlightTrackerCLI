@@ -1,7 +1,7 @@
 const axios = require("axios");
 const chalk = require("chalk");
 
-class FlightTrackerCLI {
+class FlightTracker {
   constructor(apiKey = null, axiosInstance) {
     this.apiKey = apiKey;
     this.axiosInstance = axiosInstance;
@@ -16,7 +16,7 @@ class FlightTrackerCLI {
       const response = await this.axiosInstance.get("/airports", {
         params: {
           city: airportName,
-          // access_key: 'YOUR_API_KEY',
+          access_key: this.apiKey,
         },
       });
 
@@ -34,7 +34,9 @@ class FlightTrackerCLI {
         console.log(chalk.red("Error: Invalid response from API"));
       }
     } catch (error) {
-      console.error("Error fetching IATA code:", error.message || error);
+      console.error(
+        chalk.red("Error fetching IATA code:", error.message || error)
+      );
     }
   }
 
@@ -62,13 +64,18 @@ class FlightTrackerCLI {
     }
   }
 
-  async login(manualLogin = false, userName = "", passWord = "") {
-    if (manualLogin) {
-      // manual logic
-    } else {
-      // use axios to fetch login-related data
+  async fetchAPIKey(iteName) {
+    if (!iteName) {
+      throw new Error(
+        chalk.red(
+          "Please provide the name of the item being fetched from BitWarden"
+        )
+      );
     }
+    try {
+      exec("bitwarden ");
+    } catch (error) {}
   }
 }
 
-module.exports = { FlightTrackerCLI };
+module.exports = FlightTracker;
