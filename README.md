@@ -16,9 +16,25 @@ FlightTrackerCLI is a command-line application that helps you find flights depar
 FlightTrackerCLI relies on the following external dependencies:
 
 - `jest`: A JavaScript testing framework.
-- `BitWarden CLI`: A command-line interface for BitWarden, used for securely storing and retrieving credentials.
+- `@inquirer/prompts`: A collection of common interactive command-line prompts.
+- `axios`: A promise-based HTTP client for the browser and Node.js.
+- `chalk`: A library for styling terminal output.
 - `yargs`: A library for building command-line interfaces.
-- `chalk`: A library for styling terminal output (version 4.1.2).
+
+## Commands
+
+FlightTrackerCLI provides the following commands:
+
+- `findIATACode <IATACode>`: Find the IATA Identifier of an airport.
+
+  - **Arguments**:
+    - `IATACode`: The IATA code of the airport.
+  - **Example**: `flighttracker findIATACode JFK`
+
+- `findFlights <IATACode>`: Find the first 5 flights leaving the provided airport.
+  - **Arguments**:
+    - `IATACode`: The IATA code of the airport.
+  - **Example**: `flighttracker findFlights JFK`
 
 ## How to Contribute
 
@@ -41,27 +57,6 @@ Before a pull request (PR) can be merged, it must meet the following requirement
 2. **Code review**: The PR must be reviewed and approved by at least one code maintainer.
 3. **Follow coding standards**: Make sure your code adheres to the project's coding standards and guidelines.
 4. **Update documentation**: If your changes affect the documentation, update it accordingly.
-
-## Environment Variables
-
-To run FlightTrackerCLI locally, you need to set up the following environment variables:
-
-- `AVIATIONSTACK_API_URL`: The URL for the Aviationstack API.
-- `AVIATIONSTACK_API_KEY`: Your Aviationstack API key.
-
-You can create a `.env` file in the root directory of the project and add these variables there. Refer to the `.env.example` file for an example.
-
-## Using BitWarden CLI for Authentication
-
-To send requests to the Aviationstack API, FlightTrackerCLI expects you to have the BitWarden CLI installed. The CLI will query for an API key under a note called "AviationstackAPI".
-
-Using BitWarden is optional. You can also pass your API key directly to the application. This feature is a work in progress and will be available in future updates.
-
-1. Install the BitWarden CLI by following the instructions on the [BitWarden CLI GitHub page](https://github.com/bitwarden/cli).
-   - For macOS: `brew install bitwarden-cli`
-   - For Windows: Download the installer from the [BitWarden CLI GitHub page](https://github.com/bitwarden/cli).
-   - For Linux: Use the appropriate package manager for your distribution or download the binary from the [BitWarden CLI GitHub page](https://github.com/bitwarden/cli).
-2. Log in to your BitWarden account using the CLI:
 
 ## Obtaining an API Key from Aviationstack
 
