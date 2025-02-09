@@ -3,7 +3,7 @@ const yargs = require("yargs");
 const chalk = require("chalk");
 const { promptAPIKey, flightTracker } = require("./utils/middleware");
 
-var flightTrackerCommands = yargs
+yargs
   .middleware([promptAPIKey, flightTracker])
   .usage("Usage: $0 <command> [options]")
   .command(
@@ -17,7 +17,7 @@ var flightTrackerCommands = yargs
       });
     },
     (argv) => {
-      if (argv["IATACode"]) {
+      if (argv["IATACode"] && argv["IATACode"] != undefined) {
         // make input lower case and remove leading and trailing whitespace
         argv["IATACode"] = argv["IATACode"].toLowerCase().trim();
         console.log(chalk.green(argv.flightTracker.findIATACode()));

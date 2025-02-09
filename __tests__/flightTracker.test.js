@@ -1,4 +1,4 @@
-const { FlightTrackerCLI } = require("../bin/utils/utils.js");
+const FlightTracker = require("../bin/utils/FlightTracker");
 
 const mockAxiosInstance = {
   get: jest.fn((endpoint, options) => {
@@ -93,15 +93,15 @@ const mockAxiosInstance = {
   }),
 };
 
-const flightTrackerCLI = new FlightTrackerCLI("API_KEY", mockAxiosInstance);
+const flightTracker = new FlightTracker("API_KEY", mockAxiosInstance);
 
 describe("FlightTrackerCLI methods", () => {
   it("findIATACode", async () => {
-    const resp = await flightTrackerCLI.findIATACode("test");
+    const resp = await flightTracker.findIATACode("test");
     expect(resp).not.toBeNull();
   });
   it("findFlights", async () => {
-    const resp = await flightTrackerCLI.findFlights("test");
+    const resp = await flightTracker.findFlights("test");
     expect(resp).not.toBeNull();
   });
 });
