@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "jest",
-    "start": "node ./bin/flightTrackerCLI.js"
+    "start": "node ./bin/flightTrackerCLI.js",
+    "processRawFlightData": "node ./flightData/scripts/index.js"
   },
   "repository": {
     "type": "git",
