@@ -19,8 +19,8 @@ yargs
     (argv) => {
       if (argv["IATACode"] && argv["IATACode"] != undefined) {
         // make input lower case and remove leading and trailing whitespace
-        argv["IATACode"] = argv["IATACode"].toLowerCase().trim();
-        console.log(chalk.green(argv.flightTracker.findIATACode()));
+        const airportName = argv["IATACode"].toLowerCase().trim();
+        console.log(chalk.green(argv.flightTracker.findIATACode(airportName)));
         return;
       }
       console.log(chalk.red("No airport IATA Code provided"));
