@@ -9,7 +9,7 @@
   "scripts": {
     "test": "jest",
     "start": "node ./bin/flightTrackerCLI.js",
-    "processRawFlightData": "node ./flightData/scripts/index.js"
+    "processRawFlightData": "node ./flightData/scripts"
   },
   "repository": {
     "type": "git",
